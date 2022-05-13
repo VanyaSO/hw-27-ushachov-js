@@ -1,51 +1,99 @@
-// Task #1
-// Реализовать рекурсивную функцию которая находит факториал переданного в нее числа
-// getFactorial(3) // в данном случае должна вернуть факториал числа 3! = 3 * 2 * 1
+'use strict'
 
-function getFactorial(num){
+const counter = () => {
 
-    if(num === 0 || num === 1){
-        return 1;
+    let number = 0;
+
+    //Результат
+    let increaseResult = {};
+    let decreaseResult = {};
+    let valueResult = {};
+
+    //Роличество вызовов
+    let increaseNumCall = 0;
+    let decreaseNumCall = 0;
+    let valueNumCall = 0;
+
+
+    const increase = () => {
+        number += 1;
+        increaseNumCall += 1;
+
+        increaseResult = {
+            increaseNumCall
+        }
+
+        return increaseResult;
     }
 
-    return num * getFactorial(num - 1);
-}
+    const decrease = () => {
+        number -= 1;
+        decreaseNumCall += 1;
 
-console.log('Task #1');
-console.log(getFactorial(3));
+        decreaseResult = {
+            decreaseNumCall
+        }
 
-
-// Task #2
-// Реализовать рекурсивную функцию которая находит возводит число в степень.
-// Число которое нужно возвести в степень передается как первый аргумент в функцию
-// Степень передается как второй аргумент в функцию pow(num, degree)
-
-function pow(num, degree){
-
-    if(degree === 1){
-        return num;
+        return decreaseResult;
     }
 
-    return num * pow(num, degree - 1);
-}
+    const value = () => {
+        valueNumCall += 1;
 
-console.log('Task #2');
-console.log(pow(3,5));
-
-// Task #3
-// Рекурсивное суммирование
-// Задача: напишите рекурсивную функцию для вычисления суммы заданных положительных целых чисел a и b
-// без прямого использования оператора +.
-
-function sum(a, b){
-
-    if(a === 0){
-        return b;
+        valueResult = {
+            result : number,
+        }
+        return valueResult;
     }
 
-    return sum(a - 1,b + 1);
+    const getStatistic = () => {
+
+        return{
+            'Number of calls decrease': decreaseNumCall,
+            'Number of calls increase': increaseNumCall,
+            'Number of calls value': valueNumCall,
+            'Calculation result': number
+        }
+    }
+
+    const zeroing = () => {
+
+        number = 0;
+        increaseNumCall = 0;
+        increaseResult = 0;
+        decreaseNumCall = 0;
+        decreaseResult = 0;
+        valueNumCall = 0;
+        valueResult = 0;
+
+        return '/// Counter reset ///';
+    }
+
+    return{
+        increase,
+        decrease,
+        value,
+        getStatistic,
+        zeroing
+    }
 
 }
 
-console.log('Task #3');
-console.log(sum(3,5));
+const funcCounter = counter();
+
+console.log(funcCounter.increase());
+console.log(funcCounter.decrease());
+console.log(funcCounter.decrease());
+console.log(funcCounter.value());
+console.log(funcCounter.getStatistic());
+console.log(funcCounter.zeroing());
+console.log(funcCounter.increase());
+console.log(funcCounter.increase());
+console.log(funcCounter.increase());
+console.log(funcCounter.getStatistic());
+
+
+
+
+
+
